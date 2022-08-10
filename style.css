@@ -1,0 +1,67 @@
+body {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  background: rgb(177, 135, 216);
+}
+.grid {
+  width: 18.8rem;
+  height: 18.8rem;
+  border: solid black 0.3rem;
+  display: flex;
+  flex-wrap: wrap;
+  background: white;
+}
+
+.grid div {
+  width: 1.25rem;
+  height: 1.25rem;
+}
+
+.invader {
+  background-color: purple;
+  border-radius: 1rem;
+}
+
+.shooter {
+  background-color: rgb(41, 33, 148);
+  border-top-left-radius: 0.5rem;
+  border-top-right-radius: 0.5rem;
+}
+
+.laser {
+  background-color: orange;
+}
+
+.boom {
+  background-color: red;
+  border-bottom-left-radius: 0.5rem;
+  border-bottom-right-radius: 0.5rem;
+}
+.results {
+  font-family: Verdana, Geneva, Tahoma, sans-serif;
+}
+.restart {
+  margin-top: 2rem;
+  font-family: Verdana, Geneva, Tahoma, sans-serif;
+  font-size: 2rem;
+  font-weight: bold;
+  cursor: pointer;
+  background: white;
+  border: 0.2rem solid black;
+  border-radius: 0.5rem;
+  display: inline-block;
+  text-align: center;
+  text-decoration: none;
+  outline: none;
+  box-shadow: 0 9px rgb(124, 124, 124);
+}
+.restart:hover {
+  background-color: #d4c8df;
+}
+.restart:active {
+  background-color: #a486bd;
+  box-shadow: 0 5px rgb(78, 77, 77);
+  transform: translateY(4px);
+}
