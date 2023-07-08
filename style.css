@@ -20,29 +20,90 @@ body {
 }
 
 .invader {
-  background-color: purple;
-  border-radius: 1rem;
+  background: rgb(255, 255, 255);
+  background: linear-gradient(
+    0deg,
+    rgba(255, 255, 255, 1) 0%,
+    rgba(115, 18, 115, 1) 15%,
+    rgba(115, 18, 115, 1) 40%,
+    rgba(6, 12, 42, 1) 45%,
+    rgba(177, 135, 216, 1) 50%,
+    rgba(25, 13, 40, 1) 55%,
+    rgba(115, 18, 115, 1) 60%,
+    rgba(255, 255, 255, 1) 80%
+  );
+  border-bottom-left-radius: 0.8rem;
+  border-bottom-right-radius: 0.8rem;
 }
 
 .shooter {
-  background-color: rgb(41, 33, 148);
+  background: rgb(6, 12, 42);
+  background: linear-gradient(
+    90deg,
+    rgba(6, 12, 42, 1) 15%,
+    rgba(41, 33, 148, 1) 20%,
+    rgba(41, 33, 148, 1) 27%,
+    rgba(41, 33, 148, 1) 45%,
+    rgba(177, 135, 216, 1) 50%,
+    rgba(41, 33, 148, 1) 55%,
+    rgba(41, 33, 148, 1) 80%,
+    rgba(6, 12, 42, 1) 85%
+  );
   border-top-left-radius: 0.5rem;
   border-top-right-radius: 0.5rem;
 }
 
 .laser {
-  background-color: orange;
+  background: rgb(255, 106, 0);
+  background: rgb(255, 255, 255);
+  background: linear-gradient(
+    90deg,
+    rgba(255, 255, 255, 1) 0%,
+    rgba(255, 106, 0, 1) 10%,
+    rgba(255, 106, 0, 1) 20%,
+    rgba(255, 255, 255, 1) 30%,
+    rgba(255, 255, 255, 1) 70%,
+    rgba(255, 106, 0, 1) 80%,
+    rgba(255, 106, 0, 1) 90%,
+    rgba(255, 255, 255, 1) 100%
+  );
 }
 
 .boom {
-  background-color: red;
-  border-bottom-left-radius: 0.5rem;
-  border-bottom-right-radius: 0.5rem;
+  background: rgb(255, 2, 2);
+  background: radial-gradient(
+    circle,
+    rgba(255, 2, 2, 1) 0%,
+    rgba(226, 43, 11, 1) 40%,
+    rgba(252, 160, 0, 1) 55%,
+    rgba(250, 238, 63, 1) 70%
+  );
+  border-radius: 0.5rem;
 }
+
+.boomLaser {
+  background-image: linear-gradient(
+    180deg,
+    hsl(0deg 100% 35%) 0%,
+    hsl(18deg 100% 39%) 5%,
+    hsl(27deg 100% 43%) 11%,
+    hsl(34deg 100% 46%) 16%,
+    hsl(41deg 100% 48%) 22%,
+    hsl(48deg 100% 49%) 27%,
+    hsl(55deg 100% 50%) 33%,
+    hsl(54deg 100% 65%) 40%,
+    hsl(54deg 100% 73%) 46%,
+    hsl(53deg 100% 80%) 54%,
+    hsl(53deg 100% 87%) 62%,
+    hsl(53deg 100% 93%) 73%,
+    hsl(0deg 0% 100%) 99%
+  );
+}
+
 .results {
   font-family: Verdana, Geneva, Tahoma, sans-serif;
 }
-.restart {
+#restart {
   margin-top: 2rem;
   font-family: Verdana, Geneva, Tahoma, sans-serif;
   font-size: 2rem;
@@ -57,11 +118,49 @@ body {
   outline: none;
   box-shadow: 0 9px rgb(124, 124, 124);
 }
-.restart:hover {
+#restart:hover {
   background-color: #d4c8df;
 }
-.restart:active {
+#restart:active {
   background-color: #a486bd;
-  box-shadow: 0 5px rgb(78, 77, 77);
-  transform: translateY(4px);
+  box-shadow: 0 0.3rem rgb(78, 77, 77);
+  transform: translateY(0.3rem);
+}
+
+#restart:disabled,
+#restart[disabled] {
+  border: 1px solid #999999;
+  background-color: #cccccc;
+  color: #666666;
+}
+
+#next-level {
+  margin-top: 2rem;
+  font-family: Verdana, Geneva, Tahoma, sans-serif;
+  font-size: 2rem;
+  font-weight: bold;
+  cursor: pointer;
+  background: white;
+  border: 0.2rem solid black;
+  border-radius: 0.5rem;
+  display: inline-block;
+  text-align: center;
+  text-decoration: none;
+  outline: none;
+  box-shadow: 0 9px rgb(124, 124, 124);
+}
+#next-level:hover {
+  background-color: #d4c8df;
+}
+#next-level:active {
+  background-color: #a486bd;
+  box-shadow: 0 0.3rem rgb(78, 77, 77);
+  transform: translateY(0.3rem);
+}
+
+#next-level:disabled,
+#next-level[disabled] {
+  border: 1px solid #999999;
+  background-color: #cccccc;
+  color: #666666;
 }
