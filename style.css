@@ -103,7 +103,11 @@ body {
 .results {
   font-family: Verdana, Geneva, Tahoma, sans-serif;
 }
-#restart {
+#restart,
+#next-level,
+#moveRight,
+#moveLeft,
+#laser {
   margin-top: 2rem;
   font-family: Verdana, Geneva, Tahoma, sans-serif;
   font-size: 2rem;
@@ -127,28 +131,6 @@ body {
   transform: translateY(0.3rem);
 }
 
-#restart:disabled,
-#restart[disabled] {
-  border: 1px solid #999999;
-  background-color: #cccccc;
-  color: #666666;
-}
-
-#next-level {
-  margin-top: 2rem;
-  font-family: Verdana, Geneva, Tahoma, sans-serif;
-  font-size: 2rem;
-  font-weight: bold;
-  cursor: pointer;
-  background: white;
-  border: 0.2rem solid black;
-  border-radius: 0.5rem;
-  display: inline-block;
-  text-align: center;
-  text-decoration: none;
-  outline: none;
-  box-shadow: 0 9px rgb(124, 124, 124);
-}
 #next-level:hover {
   background-color: #d4c8df;
 }
@@ -163,4 +145,137 @@ body {
   border: 1px solid #999999;
   background-color: #cccccc;
   color: #666666;
+}
+
+#restart:disabled,
+#restart[disabled] {
+  border: 1px solid #999999;
+  background-color: #cccccc;
+  color: #666666;
+}
+
+#muteMusic,
+#muteAllSounds {
+  margin-top: 0rem;
+  margin-bottom: 0.5rem;
+  font-family: Verdana, Geneva, Tahoma, sans-serif;
+  font-size: 1rem;
+  font-weight: bold;
+  cursor: pointer;
+  background: white;
+  border: 0.15rem solid black;
+  border-radius: 0.3rem;
+  display: inline-block;
+  text-align: center;
+  text-decoration: none;
+  outline: none;
+  box-shadow: 0 4px rgb(124, 124, 124);
+}
+
+#muteMusic {
+  margin-right: 1rem;
+}
+
+#muteMusic:hover {
+  background-color: #d4c8df;
+}
+#muteMusic:active {
+  background-color: #a486bd;
+  box-shadow: 0 0.1rem rgb(78, 77, 77);
+  transform: translateY(0.15rem);
+}
+
+#muteAllSounds:hover {
+  background-color: #d4c8df;
+}
+#muteAllSounds:active {
+  background-color: #a486bd;
+  box-shadow: 0 0.1rem rgb(78, 77, 77);
+  transform: translateY(0.15rem);
+}
+
+#muteAllSounds:disabled,
+#muteAllSounds[disabled] {
+  border: 1px solid #999999;
+  background-color: #cccccc;
+  color: #666666;
+}
+
+#muteMusic:disabled,
+#muteMusic[disabled] {
+  border: 1px solid #999999;
+  background-color: #cccccc;
+  color: #666666;
+}
+
+#laser {
+  margin-left: 1rem;
+  margin-bottom: 1rem;
+}
+
+#laser:hover {
+  background-color: #f8861c;
+  color: #666666;
+}
+#laser:active {
+  background-color: #ff520e;
+  box-shadow: 0 0.3rem rgb(78, 77, 77);
+  transform: translateY(0.3rem);
+}
+
+#moveLeft:hover {
+  background-color: #d4c8df;
+  color: #666666;
+}
+#moveLeft:active {
+  background-color: #ffffff;
+  box-shadow: 0 0.3rem rgb(78, 77, 77);
+  transform: translateY(0.3rem);
+  color: #666666;
+}
+
+#moveRight:hover {
+  background-color: #d4c8df;
+  color: #666666;
+}
+#moveRight:active {
+  background-color: #ffffff;
+  box-shadow: 0 0.3rem rgb(78, 77, 77);
+  transform: translateY(0.3rem);
+  color: #666666;
+}
+
+@media screen and (min-width: 980px) /* Desktop */ {
+  .controlButtons {
+    display: none;
+  }
+
+  .buttons {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+  }
+}
+
+@media screen and (max-width: 979px) /* Tablet */ {
+  .buttons {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: row;
+    gap: 1rem;
+    margin-bottom: 1rem;
+  }
+}
+
+@media screen and (max-width: 500px) /* Mobile */ {
+  .buttons {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: row;
+    gap: 1rem;
+    margin-bottom: 1rem;
+  }
 }
