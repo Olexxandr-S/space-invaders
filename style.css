@@ -18,6 +18,13 @@ main {
 .left,
 .right {
   margin-top: auto;
+  margin-bottom: auto;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+img {
+  max-width: 90%;
 }
 
 .grid {
@@ -285,6 +292,11 @@ main {
     gap: 1rem;
     margin-bottom: 1rem;
   }
+
+  .left,
+  .right {
+    display: none;
+  }
 }
 
 @media screen and (max-width: 500px) /* Mobile */ {
@@ -301,5 +313,10 @@ main {
   #moveLeft,
   #laser {
     font-size: 1.3rem;
+  }
+
+  .left,
+  .right {
+    display: none;
   }
 }
