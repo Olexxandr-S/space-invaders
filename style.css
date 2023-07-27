@@ -1,10 +1,25 @@
 body {
+  background: rgb(177, 135, 216);
+}
+
+main {
   display: flex;
   align-items: center;
   justify-content: center;
   flex-direction: column;
-  background: rgb(177, 135, 216);
 }
+
+#parent {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-around;
+}
+
+.left,
+.right {
+  margin-top: auto;
+}
+
 .grid {
   width: 18.8rem;
   height: 18.8rem;
@@ -17,6 +32,7 @@ body {
 .grid div {
   width: 1.25rem;
   height: 1.25rem;
+  margin: auto;
 }
 
 .invader {
@@ -102,7 +118,9 @@ body {
 
 .results {
   font-family: Verdana, Geneva, Tahoma, sans-serif;
+  text-align: center;
 }
+
 #restart,
 #next-level,
 #moveRight,

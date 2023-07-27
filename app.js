@@ -9,7 +9,7 @@ let aliensRemoved = [];
 let results = 0;
 let currentLevel = 500;
 let mute = false;
-let game = "paused";
+let game = "start";
 
 let sound = new Howl({
   src: ["sounds/music/DST-DasElectron.mp3"],
@@ -307,7 +307,7 @@ const restart = () => {
 };
 
 const startByKey = (e) => {
-  if (game === "paused" || game === "win") {
+  if (game === "paused" || game === "win" || game === "start") {
     switch (e.key) {
       case " ":
       case "Enter":
@@ -364,7 +364,7 @@ const nextLevel = () => {
 };
 
 const muteMusic = () => {
-  if (!sound.playing()) {
+  if (!sound.playing() && game !== "paused") {
     sound.play();
     document.getElementById("muteMusic").innerHTML = "Mute Music";
   } else {
@@ -374,19 +374,9 @@ const muteMusic = () => {
 };
 
 const muteAllSounds = () => {
-  if (mute) {
-    muteMusic();
-    soundEffects.laserSound.volume(0.1);
-    soundEffects.gameOverSound.volume(0.1);
-    soundEffects.boomSound.volume(0.1);
-    soundEffects.borderSound.volume(0.1);
-    soundEffects.levelUpSound.volume(0.5);
-    soundEffects.levelDoneSound.volume(0.5);
-    soundEffects.invadersMoveSound.volume(0.35);
-    mute = false;
-    document.getElementById("muteAllSounds").innerHTML = "Mute All Sounds";
-  } else {
-    muteMusic();
+  if (!mute) {
+    sound.pause();
+    document.getElementById("muteMusic").innerHTML = "Unmute Music";
     soundEffects.laserSound.volume(0);
     soundEffects.gameOverSound.volume(0);
     soundEffects.boomSound.volume(0);
@@ -396,6 +386,20 @@ const muteAllSounds = () => {
     soundEffects.invadersMoveSound.volume(0);
     mute = true;
     document.getElementById("muteAllSounds").innerHTML = "Unmute";
+  } else {
+    if (!sound.playing() && game !== "paused") {
+      sound.play();
+      document.getElementById("muteMusic").innerHTML = "Mute Music";
+    }
+    soundEffects.laserSound.volume(0.1);
+    soundEffects.gameOverSound.volume(0.1);
+    soundEffects.boomSound.volume(0.1);
+    soundEffects.borderSound.volume(0.1);
+    soundEffects.levelUpSound.volume(0.5);
+    soundEffects.levelDoneSound.volume(0.5);
+    soundEffects.invadersMoveSound.volume(0.35);
+    mute = false;
+    document.getElementById("muteAllSounds").innerHTML = "Mute All Sounds";
   }
 };
 
@@ -414,16 +418,34 @@ const moveRight = () => {
 const pause = (e) => {
   if (e.key === "Escape") {
     if (game === "paused") {
-      muteAllSounds();
+      if (!sound.playing()) {
+        sound.play();
+        document.getElementById("muteMusic").innerHTML = "Mute Music";
+      }
+      document.getElementById("muteMusic").removeAttribute("disabled");
       game = "started";
       invadersId = setInterval(moveInvaders, currentLevel);
     } else if (game === "started") {
-      muteAllSounds();
+      if (sound.playing()) {
+        sound.pause();
+        document.getElementById("muteMusic").innerHTML = "Unmute Music";
+      }
+      document.getElementById("muteMusic").disabled = true;
       game = "paused";
       clearInterval(invadersId);
     }
   }
 };
+
+document.getElementById("restart").addEventListener("click", restart);
+document.getElementById("next-level").addEventListener("click", nextLevel);
+document.getElementById("muteMusic").addEventListener("click", muteMusic);
+document
+  .getElementById("muteAllSounds")
+  .addEventListener("click", muteAllSounds);
+document.getElementById("laser").addEventListener("click", laser);
+document.getElementById("moveRight").addEventListener("click", moveRight);
+document.getElementById("moveLeft").addEventListener("click", moveLeft);
 
 document.addEventListener("keydown", shoot);
 document.addEventListener("keyup", startByKey);

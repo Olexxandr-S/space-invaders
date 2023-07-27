@@ -6,32 +6,36 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Space Invaders</title>
     <link rel="stylesheet" href="style.css" />
+    <script src="howler.core.js" defer></script>
+    <script src="app.js" defer></script>
   </head>
+
   <body>
-    <div>
-      <button id="muteMusic" onclick="muteMusic()">Mute Music</button>
-      <button id="muteAllSounds" onclick="muteAllSounds()">
-        Mute All Sounds
-      </button>
+    <div id="parent">
+      <aside class="left"><img src="buttons.png" alt="buttons" /></aside>
+      <main>
+        <header>
+          <button id="muteMusic">Mute Music</button>
+          <button id="muteAllSounds">Mute All Sounds</button>
+        </header>
+
+        <h1 class="results">0</h1>
+        <div class="grid"></div>
+
+        <div class="buttons">
+          <button id="restart">Start</button>
+          <button id="next-level" disabled="true">Next Level</button>
+        </div>
+
+        <div class="controlButtons">
+          <button id="moveLeft">Left</button>
+          <button id="moveRight">Right</button>
+          <button id="laser">Laser</button>
+        </div>
+      </main>
+      <aside class="right">
+        <img src="description.png" alt="description" />
+      </aside>
     </div>
-
-    <h1 class="results">0</h1>
-    <div class="grid"></div>
-
-    <div class="buttons">
-      <button id="restart" onclick="restart()">Start</button>
-      <button id="next-level" onclick="nextLevel()" disabled="true">
-        Next Level
-      </button>
-    </div>
-
-    <div class="controlButtons">
-      <button id="moveLeft" onclick="moveLeft()">Left</button>
-      <button id="moveRight" onclick="moveRight()">Right</button>
-      <button id="laser" onclick="laser()">Laser</button>
-    </div>
-
-    <script src="howler.core.js"></script>
-    <script src="app.js"></script>
   </body>
 </html>
