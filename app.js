@@ -9,6 +9,7 @@ let aliensRemoved = [];
 let results = 0;
 let currentLevel = 500;
 let mute = false;
+let game = "paused";
 
 let sound = new Howl({
   src: ["sounds/music/DST-DasElectron.mp3"],
@@ -115,20 +116,22 @@ function remove() {
 squareInvaders[currentShooterIndex].classList.add("shooter");
 
 function moveShooter(e) {
-  squareInvaders[currentShooterIndex].classList.remove("shooter");
-  switch (e.key) {
-    case "ArrowLeft":
-    case "a":
-    case "A":
-      if (currentShooterIndex % width !== 0) currentShooterIndex -= 1;
-      break;
-    case "ArrowRight":
-    case "d":
-    case "D":
-      if (currentShooterIndex % width < width - 1) currentShooterIndex += 1;
-      break;
+  if (game === "started") {
+    squareInvaders[currentShooterIndex].classList.remove("shooter");
+    switch (e.key) {
+      case "ArrowLeft":
+      case "a":
+      case "A":
+        if (currentShooterIndex % width !== 0) currentShooterIndex -= 1;
+        break;
+      case "ArrowRight":
+      case "d":
+      case "D":
+        if (currentShooterIndex % width < width - 1) currentShooterIndex += 1;
+        break;
+    }
+    squareInvaders[currentShooterIndex].classList.add("shooter");
   }
-  squareInvaders[currentShooterIndex].classList.add("shooter");
 }
 document.addEventListener("keydown", moveShooter);
 
@@ -165,6 +168,7 @@ function moveInvaders() {
     squareInvaders[currentShooterIndex].classList.contains("invader", "shooter")
   ) {
     resultsDisplay.innerHTML = "GAME OVER";
+    game = "over";
     clearInterval(invadersId);
     document.getElementById("restart").removeAttribute("disabled");
     soundEffects.gameOverSound.play();
@@ -173,6 +177,7 @@ function moveInvaders() {
   for (let i = 0; i < alienInvaders.length; i++) {
     if (alienInvaders[i] > squareInvaders.length - 15) {
       resultsDisplay.innerHTML = "GAME OVER";
+      game = "over";
       clearInterval(invadersId);
       document.getElementById("restart").removeAttribute("disabled");
       soundEffects.gameOverSound.play();
@@ -180,6 +185,7 @@ function moveInvaders() {
   }
   if (aliensRemoved.length === alienInvaders.length) {
     resultsDisplay.innerHTML = "YOU WIN";
+    game = "win";
     clearInterval(invadersId);
     document.getElementById("restart").removeAttribute("disabled");
     if (currentLevel > 50) {
@@ -190,6 +196,7 @@ function moveInvaders() {
       }
     } else {
       resultsDisplay.innerHTML = "Congratulations, you passed all levels!";
+      game = "win";
     }
   }
 }
@@ -260,20 +267,26 @@ function shoot(e) {
           results += 10;
           break;
       }
-      resultsDisplay.innerHTML = results;
-      soundEffects.boomSound.play();
+      if (game === "started") {
+        resultsDisplay.innerHTML = results;
+        soundEffects.boomSound.play();
+      }
     }
   }
+
   switch (e.key) {
     case "ArrowUp":
     case "w":
     case "W":
-      laserId = setInterval(moveLaser, currentLevel / 5);
-      soundEffects.laserSound.play();
+      if (game === "started") {
+        laserId = setInterval(moveLaser, currentLevel / 5);
+        soundEffects.laserSound.play();
+      }
   }
 }
 
 const restart = () => {
+  game = "started";
   for (let i = 0; i < squareInvaders.length; i++) {
     squareInvaders[i].classList.remove("invader");
   }
@@ -290,6 +303,22 @@ const restart = () => {
   document.getElementById("next-level").disabled = true;
   if (!sound.playing()) {
     sound.play();
+  }
+};
+
+const startByKey = (e) => {
+  if (game === "paused" || game === "win") {
+    switch (e.key) {
+      case " ":
+      case "Enter":
+        if (currentLevel >= 500) {
+          restart();
+        } else {
+          nextLevel();
+        }
+    }
+  } else if (game === "over") {
+    restart();
   }
 };
 
@@ -326,6 +355,7 @@ const nextLevel = () => {
       alienInvaders = [...levels.level50];
       break;
   }
+  game = "started";
   aliensRemoved = [];
   invadersId = setInterval(moveInvaders, currentLevel);
   document.getElementById("restart").disabled = true;
@@ -336,15 +366,16 @@ const nextLevel = () => {
 const muteMusic = () => {
   if (!sound.playing()) {
     sound.play();
-    document.getElementById("muteMusic").innerHTML = "Unmute Music";
+    document.getElementById("muteMusic").innerHTML = "Mute Music";
   } else {
     sound.pause();
-    document.getElementById("muteMusic").innerHTML = "Mute Music";
+    document.getElementById("muteMusic").innerHTML = "Unmute Music";
   }
 };
 
 const muteAllSounds = () => {
   if (mute) {
+    muteMusic();
     soundEffects.laserSound.volume(0.1);
     soundEffects.gameOverSound.volume(0.1);
     soundEffects.boomSound.volume(0.1);
@@ -355,6 +386,7 @@ const muteAllSounds = () => {
     mute = false;
     document.getElementById("muteAllSounds").innerHTML = "Mute All Sounds";
   } else {
+    muteMusic();
     soundEffects.laserSound.volume(0);
     soundEffects.gameOverSound.volume(0);
     soundEffects.boomSound.volume(0);
@@ -379,4 +411,20 @@ const moveRight = () => {
   moveShooter((e = { key: "ArrowRight" }));
 };
 
+const pause = (e) => {
+  if (e.key === "Escape") {
+    if (game === "paused") {
+      muteAllSounds();
+      game = "started";
+      invadersId = setInterval(moveInvaders, currentLevel);
+    } else if (game === "started") {
+      muteAllSounds();
+      game = "paused";
+      clearInterval(invadersId);
+    }
+  }
+};
+
 document.addEventListener("keydown", shoot);
+document.addEventListener("keyup", startByKey);
+document.addEventListener("keyup", pause);
